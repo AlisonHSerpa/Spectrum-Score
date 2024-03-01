@@ -11,9 +11,9 @@ class Resultado extends StatelessWidget {
 
     String resposta(int acertos) {
       if (acertos == 1) {
-        return "voce eh";
+        return "voce provavelmente esta dentro do grupo de adultos com TDAH";
       } else {
-        return "voce nao eh";
+        return "voce provavelmente nao esta incluido no grupo de adultos com TDAH";
       }
     }
 

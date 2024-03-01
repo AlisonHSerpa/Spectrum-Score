@@ -18,25 +18,37 @@ class _TdahState extends State<Tdah> {
       {
         //precisa concertar o algoritmo, use o for pra a resposta correta
         //precisamos poder selecionar mais de uma resposta certa
-        'pergunta': "Quanto é a raiz de 1 ?",
+        'pergunta':
+            "Com que frequência você deixa um projeto pela metade depois de já ter feito as partes mais dificeis?",
         'respostas': [
-          '1',
-          '-1',
-          '2',
-          '3',
+          'Nunca',
+          'Quase nunca',
+          'De vez em quando',
+          'Quase sempre',
+          'Sempre',
         ],
-        'alternativa correta': 1,
+        'alternativa correta': [
+          'De vez em quando',
+          'Quase sempre',
+          'Sempre',
+        ]
       }
     ];
 
     int perguntaNumero = 1;
     int acertos = 0;
 
-    void respondeu(int respostaNumero) {
+    void respondeu(String resposta) {
       setState(() {
-        if (quiz[perguntaNumero - 1]["alternativa correta"] == respostaNumero) {
-          print("acertou");
-          acertos++;
+        for (var item in quiz) {
+          List<String> alternativasCorretas = item["alternativa correta"]!;
+          for (var alternativa in alternativasCorretas) {
+            if (alternativa.toLowerCase().contains(resposta.toLowerCase())) {
+              print("acertou");
+              acertos++;
+              break;
+            }
+          }
         }
 
         if (perguntaNumero == 1) {
@@ -66,7 +78,7 @@ class _TdahState extends State<Tdah> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('pressionado');
-                        respondeu(1);
+                        respondeu(quiz[perguntaNumero - 1]["respostas"][0]);
                       },
                       child: Text(quiz[perguntaNumero - 1]["respostas"][0],
                           style: TextStyle(fontSize: 25)),
@@ -80,7 +92,7 @@ class _TdahState extends State<Tdah> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('pressionado');
-                        respondeu(1);
+                        respondeu(quiz[perguntaNumero - 1]["respostas"][1]);
                       },
                       child: Text(quiz[perguntaNumero - 1]["respostas"][1],
                           style: TextStyle(fontSize: 25)),
@@ -94,7 +106,7 @@ class _TdahState extends State<Tdah> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('pressionado');
-                        respondeu(1);
+                        respondeu(quiz[perguntaNumero - 1]["respostas"][2]);
                       },
                       child: Text(quiz[perguntaNumero - 1]["respostas"][2],
                           style: TextStyle(fontSize: 25)),
@@ -108,9 +120,23 @@ class _TdahState extends State<Tdah> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('pressionado');
-                        respondeu(0);
+                        respondeu(quiz[perguntaNumero - 1]["respostas"][3]);
                       },
                       child: Text(quiz[perguntaNumero - 1]["respostas"][3],
+                          style: TextStyle(fontSize: 25)),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.fromLTRB(100, 20, 100, 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print('pressionado');
+                        respondeu(quiz[perguntaNumero - 1]["respostas"][4]);
+                      },
+                      child: Text(quiz[perguntaNumero - 1]["respostas"][4],
                           style: TextStyle(fontSize: 25)),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(100, 20, 100, 20),
